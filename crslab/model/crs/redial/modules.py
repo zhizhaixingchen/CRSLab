@@ -65,7 +65,7 @@ class HRNN(nn.Module):
         # consider valid sequences only(length > 0)
         num_positive_lengths = torch.sum(utterance_lengths > 0)
         sorted_utterances = sorted_utterances[:num_positive_lengths]
-        sorted_lengths = sorted_lengths[:num_positive_lengths]
+        sorted_lengths = sorted_lengths[:num_positive_lengths].to("cpu")
 
         embedded = self.embedding(sorted_utterances)
         if self.use_dropout:
