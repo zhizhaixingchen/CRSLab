@@ -71,7 +71,7 @@ class HRNN(nn.Module):
         if self.use_dropout:
             embedded = self.dropout(embedded)
 
-        packed_utterances = pack_padded_sequence(embedded, sorted_lengths, batch_first=True).to("cpu")
+        packed_utterances = pack_padded_sequence(embedded, sorted_lengths, batch_first=True)
         _, utterance_encoding = self.utterance_encoder(packed_utterances)
 
         # concat the hidden states of the last layer (two directions of the GRU)
