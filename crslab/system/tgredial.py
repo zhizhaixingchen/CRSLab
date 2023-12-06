@@ -218,6 +218,7 @@ class TGReDialSystem(BaseSystem):
             for batch in self.train_dataloader['conv'].get_conv_data(
                     batch_size=self.conv_batch_size, shuffle=True):
                 self.step(batch, stage='conv', mode='train')
+                break
             self.evaluator.report(epoch=epoch, mode='train')
             # val
             with torch.no_grad():
