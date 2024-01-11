@@ -74,7 +74,7 @@ class DownloadableFile:
         else:
             download(self.url, dpath, self.file_name)
 
-        self.checksum(dpath)
+        # self.checksum(dpath)
 
         if self.zipped:
             untar(dpath, self.file_name)
