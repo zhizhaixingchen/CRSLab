@@ -172,13 +172,15 @@ class KGSFSystem(BaseSystem):
                 for batch in self.valid_dataloader.get_conv_data(batch_size=self.conv_batch_size, shuffle=False):
                     self.step(batch, stage='conv', mode='val')
                 self.evaluator.report(epoch=epoch, mode='val')
-        # test
-        logger.info('[Test]')
-        with torch.no_grad():
-            self.evaluator.reset_metrics()
-            for batch in self.test_dataloader.get_conv_data(batch_size=self.conv_batch_size, shuffle=False):
-                self.step(batch, stage='conv', mode='test')
-            self.evaluator.report(mode='test')
+            # 每10个轮次计算一次
+            if epoch % 10 == 0:
+                # test
+                logger.info('[Test]')
+                with torch.no_grad():
+                    self.evaluator.reset_metrics()
+                    for batch in self.test_dataloader.get_conv_data(batch_size=self.conv_batch_size, shuffle=False):
+                        self.step(batch, stage='conv', mode='test')
+                    self.evaluator.report(mode='test')
 
     def fit(self):
         self.pretrain()
